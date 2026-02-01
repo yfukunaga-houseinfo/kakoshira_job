@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>採用情報 | 加古川しらさぎ保育園 - プロとして向き合う小規模保育</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #E91E63; /* 落ち着いたピンク */
+            --accent: #FFB74D;  /* 陽だまりのオレンジ */
+            --bg-base: #FAFAFA;
+            --text-main: #1D1D1F;
+            --text-sub: #86868B;
+            --glass: rgba(255, 255, 255, 0.6);
+            --card-border: rgba(255, 255, 255, 0.4);
+            --radius: 28px;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Mesh Gradient Background */
+        .mesh-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: 
+                radial-gradient(at 0% 0%, rgba(233, 30, 99, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(255, 183, 77, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(233, 30, 99, 0.05) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(255, 255, 255, 1) 0px, transparent 50%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Animation States */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s var(--ease), transform 1s var(--ease);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* First View */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 60px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: var(--text-sub);
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        /* Bento UI Section */
+        .bento-section {
+            padding: 80px 0;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: minmax(280px, auto);
+            gap: 24px;
+        }
+
+        .bento-card {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+        }
+
+        .bento-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        /* Grid Assignments */
+        .card-large { grid-column: span 8; }
+        .card-medium { grid-column: span 4; }
+        .card-full { grid-column: span 12; }
+
+        @media (max-width: 900px) {
+            .card-large, .card-medium, .card-full { grid-column: span 12; }
+        }
+
+        .bento-card .tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .bento-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .bento-card p {
+            color: var(--text-sub);
+            font-size: 1rem;
+        }
+
+        /* Statistics Section */
+        .stats-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 60px;
+        }
+
+        .stat-item {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .stat-value {
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-value span {
+            font-size: 1.5rem;
+            margin-left: 4px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-sub);
+            font-weight: 500;
+        }
+
+        /* Message Section */
+        .message-section {
+            padding: 120px 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .message-card {
+            text-align: center;
+            padding: 80px 40px;
+        }
+
+        .message-card h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            line-height: 1.4;
+        }
+
+        .message-card p {
+            font-size: 1.2rem;
+            color: var(--text-sub);
+            text-align: left;
+            margin-bottom: 24px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0 160px;
+            text-align: center;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--text-main);
+            color: white;
+            padding: 24px 64px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 700;
+            transition: all 0.5s var(--ease);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .cta-btn:hover {
+            background-color: var(--primary);
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 20px 40px rgba(233, 30, 99, 0.25);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="mesh-background"></div>
+
+    <div class="container">
+        <!-- 1. First View -->
+        <section class="hero reveal">
+            <div class="hero-content">
+                <span style="font-weight: 700; letter-spacing: 0.2em; color: var(--primary); display: block; margin-bottom: 20px;">RECRUITING 2026</span>
+                <h1>19人の成長に、深く、優しく。<br>プロとして向き合う小規模保育。</h1>
+                <p>加古川しらさぎ保育園は、0~2歳児の個性に寄り添う、<br>新しい形の保育現場です。</p>
+                <a href="#cta" class="cta-btn">まずは園見学から</a>
+            </div>
+        </section>
+
+        <!-- 2. Bento UI Section -->
+        <section class="bento-section">
+            <div class="bento-grid">
+                <!-- Card 1 -->
+                <div class="bento-card card-large reveal">
+                    <span class="tag">Small Group</span>
+                    <h3>定員19名の密な保育</h3>
+                    <p>一人ひとりの発達を科学し、見守る。大人数の保育では難しかった「個の探求」を、私たちはチームで実践しています。</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bento-card card-medium reveal">
+                    <span class="tag">Specialized</span>
+                    <h3>0〜2歳児特化</h3>
+                    <p>人生の土台を作る、最も大切な3年間に、最高の環境と専門的なケアを。</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bento-card card-medium reveal">
+                    <span class="tag">Smart Work</span>
+                    <h3>ICT導入</h3>
+                    <p>事務作業を効率化し、子どもと向き合う時間を最大化。アナログな負担を排除しました。</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="bento-card card-large reveal">
+                    <span class="tag">Career</span>
+                    <h3>スマートな働き方</h3>
+                    <p>残業ゼロへの挑戦。ICTによる連絡帳作成やシフト管理により、保育士自身のワークライフバランスを最優先に考えています。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Statistics -->
+        <section class="stats-section reveal">
+            <div class="stats-row">
+                <div class="stat-item">
+                    <span class="stat-value">0<span>h</span></span>
+                    <span class="stat-label">月平均残業時間</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">100<span>%</span></span>
+                    <span class="stat-label">有給消化率</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">1:3</span>
+                    <span class="stat-label">職員比率（0歳児）</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Message -->
+        <section class="message-section reveal">
+            <div class="message-card">
+                <h2>「生きる力」を育てる<br>プロフェッショナルの誇り。</h2>
+                <p>
+                    私たちは、ただ子どもを預かる場所ではありません。乳幼児期という人間の根幹が形成される時期に、どのような言葉をかけ、どのような環境を提供すべきか。
+                </p>
+                <p>
+                    「加古川しらさぎ保育園」は、エビデンスに基づいた保育と、溢れるほどの愛情を両立させるプロ集団です。あなたの情熱を、もっと自由に、もっとスマートに発揮できる場所がここにあります。
+                </p>
+            </div>
+        </section>
+
+        <!-- 5. CTA -->
+        <section id="cta" class="cta-section reveal">
+            <div class="cta-content">
+                <h2 style="font-size: 2.5rem; margin-bottom: 24px;">未来の仲間をお待ちしています。</h2>
+                <p style="color: var(--text-sub); margin-bottom: 48px; font-size: 1.1rem;">カジュアルな園見学から、あなたのキャリアプランをお聞かせください。</p>
+                <a href="https://himeji-preschool.jp/nursery/kakoshira/" class="cta-btn" target="_blank">エントリーはこちら</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 加古川しらさぎ保育園 All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Intersection Observer to handle reveal animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Once animated, we don't need to observe it anymore
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
