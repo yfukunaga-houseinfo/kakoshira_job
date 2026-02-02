@@ -3,267 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>求人募集 | 加古川しらさぎ保育園</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>採用情報 | 加古川しらさぎ保育園 - 定員19名の、大家族。</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.0/umd/lucide.min.js"></script>
     <style>
         :root {
-            --primary: #FFFFFF;
-            --accent-charcoal: #4C566A;
-            --accent-sage: #A3BE8C;
-            --text-main: #2E3440;
-            --card-bg: #F8FAF9;
+            --main-color: #EBCB8B;
+            --accent-color: #D08770;
+            --bg-light: #FDFBF7;
         }
 
         body {
-            font-family: 'Noto Sans JP', sans-serif;
-            background-color: var(--primary);
-            color: var(--text-main);
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            background-color: var(--bg-light);
+            color: #4C566A;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
-        /* Noise Texture Overlay */
-        .noise::before {
+        /* Noise Texture */
+        .noise-bg {
+            position: relative;
+        }
+        .noise-bg::before {
             content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
             opacity: 0.05;
-            z-index: 9999;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Kinetic Typography Animation */
-        .kinetic-text span {
-            display: inline-block;
+        /* Kinetic Typography Animations */
+        .kinetic-text {
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s forwards ease-out;
+            transform: translateY(30px) rotate(-2deg);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .kinetic-text.visible {
+            opacity: 1;
+            transform: translateY(0) rotate(0);
         }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px) rotate(-5deg);
+            transition: all 1s ease-out;
+        }
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0) rotate(0);
         }
 
-        /* Bento Grid Custom Styles */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-auto-rows: minmax(180px, auto);
-            gap: 1.5rem;
+        /* Organic Shapes */
+        .organic-blob {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            transition: border-radius 1s ease-in-out;
         }
-
-        @media (max-width: 768px) {
-            .bento-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        .bento-card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 2rem;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(0,0,0,0.03);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .bento-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            background: #fff;
-        }
-
-        /* Micro-interactions */
-        .cta-button {
+        .organic-button {
+            border-radius: 20px 50px 30px 40px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
-        
-        .cta-button:hover {
-            background-color: var(--accent-charcoal);
-            color: white;
+        .organic-button:hover {
+            border-radius: 40px 20px 50px 30px;
             transform: scale(1.05);
         }
 
-        .icon-bounce:hover svg {
-            animation: bounce 0.5s infinite alternate;
+        /* Bento UI Hover Parallax */
+        .bento-card {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+        .bento-card:hover {
+            transform: translateY(-10px) scale(1.02);
         }
 
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-5px); }
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+        @keyframes ripple-animation {
+            to { transform: scale(4); opacity: 0; }
         }
 
-        /* Custom spacing for Bento specific layouts */
-        .col-span-2 { grid-column: span 2 / span 2; }
-        .row-span-2 { grid-row: span 2 / span 2; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-light); }
+        ::-webkit-scrollbar-thumb { background: var(--main-color); border-radius: 10px; }
 
-        /* Floating CTA */
-        .floating-cta {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 100;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
-        }
-
-        /* Placeholder Map Style */
-        .map-placeholder {
-            background: #e5e7eb;
-            background-image: linear-gradient(45deg, #f3f4f6 25%, transparent 25%, transparent 75%, #f3f4f6 75%, #f3f4f6), 
-                              linear-gradient(45deg, #f3f4f6 25%, transparent 25%, transparent 75%, #f3f4f6 75%, #f3f4f6);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 8rem);
+            line-height: 1.1;
+            font-weight: 800;
         }
     </style>
 </head>
-<body class="noise">
+<body>
 
-    <!-- Hero Section -->
-    <header class="min-h-screen flex flex-col items-center justify-center text-center px-4 relative">
-        <div class="mb-4 text-sm tracking-widest text-gray-400 uppercase">Recruitment 2024</div>
-        <h1 class="kinetic-text text-5xl md:text-8xl font-black text-slate-700 leading-tight">
-            <span>加</span><span>古</span><span>川</span><span>し</span><span>ら</span><span>さ</span><span>ぎ</span><br>
-            <span style="animation-delay: 0.1s">保</span><span style="animation-delay: 0.15s">育</span><span style="animation-delay: 0.2s">園</span>
-        </h1>
-        <p class="mt-8 text-lg text-gray-500 max-w-lg mx-auto leading-relaxed">
-            一人ひとりに寄り添う、あたたかな時間。<br>
-            ゆとりある環境で、あなたの保育をカタチにしませんか？
-        </p>
-        <div class="mt-12 animate-bounce opacity-30">
-            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-        </div>
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center backdrop-blur-sm bg-white/30">
+        <div class="text-xl font-bold text-[#4C566A]">加古川しらさぎ保育園</div>
+        <a href="#apply" class="bg-[#D08770] text-white px-6 py-2 rounded-full font-bold shadow-lg organic-button text-sm md:text-base">
+            ENTRY
+        </a>
     </header>
 
-    <!-- Bento Section -->
-    <main class="max-w-6xl mx-auto px-6 pb-32">
-        <div class="bento-grid">
+    <!-- 1. Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20 px-6 relative overflow-hidden bg-[#EBCB8B]/10">
+        <div class="absolute -top-20 -left-20 w-64 h-64 bg-[#EBCB8B] opacity-20 organic-blob animate-pulse"></div>
+        <div class="absolute top-1/2 -right-20 w-96 h-96 bg-[#D08770] opacity-10 organic-blob"></div>
+
+        <div class="max-w-6xl w-full text-center relative z-10">
+            <div class="kinetic-text mb-4 inline-block px-4 py-1 bg-white rounded-full text-[#D08770] font-bold text-sm md:text-lg">
+                RECRUITING NURSERY TEACHERS
+            </div>
+            <h1 class="hero-title text-[#4C566A] mb-8 kinetic-text">
+                定員19名の、<br>
+                <span class="text-[#D08770]">大家族。</span>
+            </h1>
+            <p class="text-lg md:text-2xl kinetic-text text-[#4C566A]/80 mb-12">
+                一人ひとりの成長を、ゆっくり、たっぷり。
+            </p>
+            <div class="animate-bounce">
+                <i data-lucide="chevron-down" class="mx-auto text-[#D08770] w-10 h-10"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Message Section -->
+    <section class="py-32 px-6 noise-bg bg-white relative overflow-hidden">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-12 slide-in-left leading-relaxed">
+                子どもたちの「できた！」を<br>一緒に喜びたい。
+            </h2>
+            <div class="space-y-8 text-lg md:text-xl text-[#4C566A]/90 leading-loose slide-in-left">
+                <p>
+                    加古川しらさぎ保育園は、0歳から2歳までの小さな保育園。<br>
+                    大規模な園とは違い、スタッフ全員が子どもたち全員を見守る。<br>
+                    まるで一つの大きな家族のような温かさがあります。
+                </p>
+                <p>
+                    行事に追われる毎日ではなく、<br>
+                    目の前の小さな成長を、全力で愛でる。<br>
+                    それが、私たちの考える保育の「楽しさ」です。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Bento UI Job Offer Section -->
+    <section class="py-32 px-6 bg-[#FDFBF7]">
+        <div class="max-w-6xl mx-auto">
+            <h3 class="text-3xl font-extrabold mb-12 text-center text-[#D08770]">働く環境の魅力</h3>
             
-            <!-- Card A: Time -->
-            <div class="bento-card col-span-2 row-span-1 bg-emerald-50 border-emerald-100">
-                <div class="icon-bounce">
-                    <svg class="w-10 h-10 text-emerald-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="text-sm font-bold text-emerald-700 mb-1">勤務時間</h3>
-                    <p class="text-3xl font-black text-emerald-900">7:00 〜 18:00</p>
-                    <p class="mt-2 text-emerald-600 font-medium text-sm">延長保育がないため、定時で帰りやすい環境です。</p>
-                </div>
-            </div>
-
-            <!-- Card B: Holidays -->
-            <div class="bento-card col-span-2 md:col-span-1 bg-stone-100">
-                <div class="icon-bounce">
-                    <svg class="w-8 h-8 text-stone-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="text-xs font-bold text-stone-500 mb-1">休園日</h3>
-                    <p class="text-xl font-bold text-stone-800 leading-tight">日曜・祝日<br>年末年始</p>
-                </div>
-            </div>
-
-            <!-- Card C: Capacity -->
-            <div class="bento-card col-span-2 md:col-span-1" style="background-color: var(--accent-sage);">
-                <div class="text-white opacity-80 mb-4">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                    </svg>
-                </div>
-                <div class="text-white">
-                    <h3 class="text-xs font-bold mb-1">定員</h3>
-                    <p class="text-2xl font-black">19名</p>
-                    <p class="text-xs mt-1 opacity-90">0歳児〜2歳児対象</p>
-                </div>
-            </div>
-
-            <!-- Card D: Image/Facility -->
-            <div class="bento-card col-span-4 md:col-span-2 row-span-2 p-0 overflow-hidden group">
-                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all z-10"></div>
-                <!-- 本来は画像が入る場所 -->
-                <div class="w-full h-full flex items-center justify-center bg-gray-200">
-                    <span class="text-gray-400">施設紹介イメージ</span>
-                </div>
-                <div class="absolute bottom-6 left-6 z-20 text-white">
-                    <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold mb-2 inline-block">Facility</span>
-                    <h3 class="text-2xl font-bold">密な関わりを大切に</h3>
-                    <p class="text-sm opacity-90 mt-1">小規模だからこそできる丁寧な保育。</p>
-                </div>
-            </div>
-
-            <!-- Card E: Location & Info -->
-            <div class="bento-card col-span-4 md:col-span-2 bg-white">
-                <div class="flex flex-col md:flex-row gap-6">
-                    <div class="flex-1">
-                        <h3 class="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">Access</h3>
-                        <p class="text-lg font-bold text-slate-700">〒675-0067<br>加古川市加古川町河原240-1</p>
-                        <div class="mt-4 space-y-1 text-sm text-gray-500">
-                            <p>TEL: 079-451-7129</p>
-                            <p>FAX: 079-451-7139</p>
-                        </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-auto gap-4 md:h-[600px]">
+                <!-- Card 1: Time -->
+                <div class="md:col-span-2 md:row-span-1 bento-card bg-[#EBCB8B]/20 p-8 rounded-[2rem] flex flex-col justify-between">
+                    <i data-lucide="clock" class="text-[#D08770] w-12 h-12 mb-4"></i>
+                    <div>
+                        <h4 class="text-2xl font-bold mb-2">延長保育なし</h4>
+                        <p>7:00〜18:00の固定時間。プライベートも大切にできます。</p>
                     </div>
-                    <div class="flex-1 h-32 md:h-auto rounded-xl map-placeholder relative">
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="bg-white px-3 py-1 rounded-lg text-xs font-bold shadow-sm">Google Map</div>
-                        </div>
+                </div>
+
+                <!-- Card 2: Scale -->
+                <div class="md:col-span-2 md:row-span-2 bento-card bg-[#A3BE8C]/20 p-8 rounded-[3rem] flex flex-col justify-center text-center">
+                    <div class="text-6xl font-black text-[#A3BE8C] mb-4">19</div>
+                    <h4 class="text-2xl font-bold mb-2">定員19名の少人数</h4>
+                    <p>一人ひとりとじっくり向き合える環境です。0歳〜2歳児のみの穏やかな時間。</p>
+                </div>
+
+                <!-- Card 3: Support -->
+                <div class="md:col-span-2 md:row-span-1 bento-card bg-[#B48EAD]/20 p-8 rounded-[2rem] flex items-center gap-6">
+                    <i data-lucide="heart" class="text-[#B48EAD] w-16 h-16 flex-shrink-0"></i>
+                    <div>
+                        <h4 class="text-xl font-bold mb-1">未経験・ブランクOK</h4>
+                        <p class="text-sm">優しい先輩たちが全力でサポートします。チームで育てる文化です。</p>
                     </div>
+                </div>
+
+                <!-- Card 4: Location (Bento-fied) -->
+                <div class="md:col-span-4 md:row-span-1 bento-card bg-[#88C0D0]/20 p-8 rounded-[2rem] flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <i data-lucide="map-pin" class="text-[#88C0D0] w-8 h-8"></i>
+                        <span class="text-xl font-bold">加古川市河原240-1</span>
+                    </div>
+                    <p class="text-[#4C566A]/80">加古川駅からもアクセス良好。地域の皆さんに愛される園です。</p>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- CTA Section -->
-        <section class="mt-32 text-center bg-slate-50 rounded-[40px] py-20 px-6 border border-slate-100">
-            <h2 class="text-3xl md:text-4xl font-black text-slate-800 mb-6">一緒に、しらさぎで働きませんか？</h2>
-            <p class="text-gray-500 mb-10 max-w-lg mx-auto leading-relaxed">
-                見学も随時受け付けております。<br>まずはお気軽にお問い合わせください。
+    <!-- 4. Data Section -->
+    <section class="py-32 px-6 bg-white border-y border-[#EBCB8B]/30">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-3xl font-extrabold mb-16 text-center">園のデータ</h3>
+            <div class="space-y-6">
+                <div class="flex flex-col md:flex-row border-b border-gray-100 pb-6 items-center gap-4">
+                    <div class="w-full md:w-1/3 flex items-center gap-3 font-bold text-lg text-[#D08770]">
+                        <i data-lucide="home" class="w-5 h-5"></i>
+                        <span>園名</span>
+                    </div>
+                    <div class="w-full md:w-2/3 text-xl">加古川しらさぎ保育園</div>
+                </div>
+                <div class="flex flex-col md:flex-row border-b border-gray-100 pb-6 items-center gap-4">
+                    <div class="w-full md:w-1/3 flex items-center gap-3 font-bold text-lg text-[#D08770]">
+                        <i data-lucide="navigation" class="w-5 h-5"></i>
+                        <span>所在地</span>
+                    </div>
+                    <div class="w-full md:w-2/3 text-lg">〒675-0067 加古川市加古川町河原240-1</div>
+                </div>
+                <div class="flex flex-col md:flex-row border-b border-gray-100 pb-6 items-center gap-4">
+                    <div class="w-full md:w-1/3 flex items-center gap-3 font-bold text-lg text-[#D08770]">
+                        <i data-lucide="phone" class="w-5 h-5"></i>
+                        <span>電話・FAX</span>
+                    </div>
+                    <div class="w-full md:w-2/3 text-lg font-mono">TEL: 079-451-7129 / FAX: 079-451-7139</div>
+                </div>
+                <div class="flex flex-col md:flex-row border-b border-gray-100 pb-6 items-center gap-4">
+                    <div class="w-full md:w-1/3 flex items-center gap-3 font-bold text-lg text-[#D08770]">
+                        <i data-lucide="calendar" class="w-5 h-5"></i>
+                        <span>開園時間・休日</span>
+                    </div>
+                    <div class="w-full md:w-2/3 text-lg">
+                        7:00 ～ 18:00（延長なし）<br>
+                        <span class="text-sm text-[#D08770]">休園日：日祝・年末年始</span>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row border-b border-gray-100 pb-6 items-center gap-4">
+                    <div class="w-full md:w-1/3 flex items-center gap-3 font-bold text-lg text-[#D08770]">
+                        <i data-lucide="users" class="w-5 h-5"></i>
+                        <span>定員</span>
+                    </div>
+                    <div class="w-full md:w-2/3 text-lg">19名（0歳児～2歳児）</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. CTA Section -->
+    <section id="apply" class="py-40 px-6 bg-[#EBCB8B] relative overflow-hidden text-center">
+        <div class="absolute inset-0 noise-bg opacity-30"></div>
+        <div class="max-w-2xl mx-auto relative z-10">
+            <h2 class="text-4xl md:text-6xl font-black mb-8 text-[#4C566A]">
+                あなたの「好き」を<br>仕事に。
+            </h2>
+            <p class="text-lg md:text-xl mb-12 text-[#4C566A]/80">
+                見学だけでも大歓迎です。<br>しらさぎ保育園の空気を感じに来てください。
             </p>
-            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
-                <a href="tel:0794517129" class="cta-button w-full md:w-auto bg-white border-2 border-slate-200 text-slate-700 px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                    電話でお問い合わせ
-                </a>
-                <a href="#" class="cta-button w-full md:w-auto bg-[#A3BE8C] text-white px-10 py-4 rounded-full font-bold shadow-lg shadow-emerald-200/50 flex items-center justify-center gap-2">
-                    応募・エントリー
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            
+            <button id="rippleButton" class="relative overflow-hidden bg-[#D08770] text-white text-2xl md:text-4xl font-black py-8 px-16 shadow-2xl organic-button group">
+                <span class="relative z-10">応募・お問い合わせフォーム</span>
+                <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </button>
+            
+            <div class="mt-12 flex flex-col md:flex-row justify-center items-center gap-8">
+                <a href="tel:079-451-7129" class="flex items-center gap-2 text-2xl font-bold text-[#4C566A]">
+                    <i data-lucide="phone-call" class="w-8 h-8"></i>
+                    079-451-7129
                 </a>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-800 text-slate-400 py-12 px-6 text-center text-sm">
-        <p class="mb-2">加古川しらさぎ保育園</p>
-        <p>&copy; 2024 Kakogawa Shirasagi. All rights reserved.</p>
+    <footer class="bg-[#4C566A] text-white py-12 px-6 text-center">
+        <p class="mb-4 font-bold">加古川しらさぎ保育園</p>
+        <p class="text-sm opacity-60">© 2024 Kakogawa Shirasagi Nursery School. All Rights Reserved.</p>
     </footer>
 
-    <!-- Floating CTA for Mobile/Desktop -->
-    <div class="floating-cta">
-        <a href="#" class="bg-slate-800 text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-xl">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
-            </svg>
-        </a>
-    </div>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
 
+        // Scroll Reveal Animation (Kinetic Typography)
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.kinetic-text, .slide-in-left').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // Ripple Effect
+        const rippleButton = document.getElementById('rippleButton');
+        rippleButton.addEventListener('click', function(e) {
+            const circle = document.createElement('span');
+            const diameter = Math.max(this.clientWidth, this.clientHeight);
+            const radius = diameter / 2;
+
+            const rect = this.getBoundingClientRect();
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${e.clientX - rect.left - radius}px`;
+            circle.style.top = `${e.clientY - rect.top - radius}px`;
+            circle.classList.add('ripple');
+
+            const ripple = this.getElementsByClassName('ripple')[0];
+            if (ripple) { ripple.remove(); }
+
+            this.appendChild(circle);
+            
+            // Interaction feedback
+            setTimeout(() => {
+                // Here you would normally redirect or open a modal
+                console.log("Entry action triggered");
+            }, 600);
+        });
+
+        // Animation for Organic Blobs
+        const blobs = document.querySelectorAll('.organic-blob');
+        setInterval(() => {
+            blobs.forEach(blob => {
+                const r1 = Math.floor(Math.random() * 30) + 40;
+                const r2 = Math.floor(Math.random() * 30) + 40;
+                const r3 = Math.floor(Math.random() * 30) + 40;
+                const r4 = Math.floor(Math.random() * 30) + 40;
+                blob.style.borderRadius = `${r1}% ${100-r1}% ${r2}% ${100-r2}% / ${r3}% ${r4}% ${100-r4}% ${100-r3}%`;
+            });
+        }, 3000);
+    </script>
 </body>
 </html>
