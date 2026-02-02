@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>採用情報 | 加古川しらさぎ保育園 - プロとして向き合う小規模保育</title>
+    <title>採用情報 | 加古川しらさぎ保育園</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #E91E63; /* 落ち着いたピンク */
-            --accent: #FFB74D;  /* 陽だまりのオレンジ */
-            --bg-base: #FAFAFA;
-            --text-main: #1D1D1F;
-            --text-sub: #86868B;
-            --glass: rgba(255, 255, 255, 0.6);
-            --card-border: rgba(255, 255, 255, 0.4);
-            --radius: 28px;
-            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+            --bg-color: #FFF9F0;      /* 柔らかなアイボリー */
+            --accent-color: #88C0D0;  /* 落ち着いたパステルブルー */
+            --text-color: #5D574F;    /* 柔らかいブラウン味のあるグレー */
+            --white: #FFFFFF;
+            --card-radius: 40px;
+            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         * {
@@ -27,36 +24,261 @@
         }
 
         body {
-            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-base);
-            color: var(--text-main);
-            line-height: 1.6;
+            font-family: 'Zen Maru Gothic', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Mesh Gradient Background */
-        .mesh-background {
+        /* Noise Texture Overlay */
+        body::before {
+            content: "";
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            background: 
-                radial-gradient(at 0% 0%, rgba(233, 30, 99, 0.08) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(255, 183, 77, 0.1) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(233, 30, 99, 0.05) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, rgba(255, 255, 255, 1) 0px, transparent 50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='filter'%3BfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23filter)'/%3E%3C/svg%3E");
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 20px;
         }
 
-        /* Animation States */
+        /* 1. Hero Section (Kinetic Typography) */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-title {
+            text-align: center;
+            font-size: clamp(2rem, 8vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-title span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Wave SVG Background */
+        .hero-wave {
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            line-height: 0;
+            z-index: -1;
+        }
+
+        .hero-wave svg {
+            fill: var(--white);
+            width: 100%;
+            height: 120px;
+        }
+
+        /* 2. Bento UI Section */
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+
+        .bento-item {
+            background-color: var(--white);
+            border-radius: var(--card-radius);
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(93, 87, 79, 0.04);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .bento-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(93, 87, 79, 0.08);
+        }
+
+        .card-large { grid-column: span 7; }
+        .card-medium { grid-column: span 5; }
+        .card-full { grid-column: span 12; }
+
+        @media (max-width: 850px) {
+            .card-large, .card-medium { grid-column: span 12; }
+        }
+
+        .bento-item .label {
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .bento-item p.main-info {
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        /* 3. Appeal Section (Micro-interactions) */
+        .appeal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .appeal-card {
+            background: rgba(136, 192, 208, 0.1);
+            border-radius: var(--card-radius);
+            padding: 45px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(136, 192, 208, 0.2);
+        }
+
+        .appeal-card:hover {
+            background: var(--white);
+            transform: scale(1.05);
+            border-color: transparent;
+            box-shadow: 0 30px 60px rgba(136, 192, 208, 0.15);
+        }
+
+        .appeal-card .icon {
+            font-size: 3.5rem;
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        .appeal-card h3 {
+            margin-bottom: 16px;
+            font-size: 1.4rem;
+        }
+
+        /* 4. Requirements Section */
+        .requirements-table {
+            width: 100%;
+            background: var(--white);
+            border-radius: var(--card-radius);
+            padding: 50px;
+            margin-top: 40px;
+            box-shadow: 0 20px 40px rgba(93, 87, 79, 0.03);
+        }
+
+        .row {
+            display: flex;
+            padding: 24px 0;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .row:last-child { border-bottom: none; }
+
+        .row-label {
+            width: 180px;
+            font-weight: 700;
+            color: var(--accent-color);
+            flex-shrink: 0;
+        }
+
+        .row-content {
+            flex-grow: 1;
+        }
+
+        @media (max-width: 600px) {
+            .requirements-table { padding: 30px; }
+            .row { flex-direction: column; }
+            .row-label { margin-bottom: 8px; width: 100%; }
+        }
+
+        /* 5. CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 100px 0 150px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 28px 80px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+            transition: var(--transition);
+            box-shadow: 0 15px 30px rgba(136, 192, 208, 0.3);
+            margin-top: 30px;
+        }
+
+        .cta-button:hover {
+            background-color: var(--text-color);
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 25px 50px rgba(93, 87, 79, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0,0,0,0.03);
+        }
+
+        /* Reveal Animation on Scroll */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -68,309 +290,154 @@
             transform: translateY(0);
         }
 
-        /* First View */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding-top: 60px;
-        }
-
-        .hero-content h1 {
-            font-size: clamp(2rem, 6vw, 4rem);
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            margin-bottom: 24px;
-        }
-
-        .hero-content p {
-            font-size: clamp(1rem, 2.5vw, 1.4rem);
-            color: var(--text-sub);
-            margin-bottom: 40px;
-            font-weight: 400;
-        }
-
-        /* Bento UI Section */
-        .bento-section {
-            padding: 80px 0;
-        }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-auto-rows: minmax(280px, auto);
-            gap: 24px;
-        }
-
-        .bento-card {
-            background: var(--glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
-        }
-
-        .bento-card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-        }
-
-        /* Grid Assignments */
-        .card-large { grid-column: span 8; }
-        .card-medium { grid-column: span 4; }
-        .card-full { grid-column: span 12; }
-
-        @media (max-width: 900px) {
-            .card-large, .card-medium, .card-full { grid-column: span 12; }
-        }
-
-        .bento-card .tag {
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--primary);
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .bento-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 16px;
-            line-height: 1.3;
-        }
-
-        .bento-card p {
-            color: var(--text-sub);
-            font-size: 1rem;
-        }
-
-        /* Statistics Section */
-        .stats-section {
-            padding: 100px 0;
-            text-align: center;
-        }
-
-        .stats-row {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 60px;
-        }
-
-        .stat-item {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .stat-value {
-            font-size: 5rem;
-            font-weight: 700;
-            color: var(--text-main);
-            line-height: 1;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .stat-value span {
-            font-size: 1.5rem;
-            margin-left: 4px;
-        }
-
-        .stat-label {
-            font-size: 1.1rem;
-            color: var(--text-sub);
-            font-weight: 500;
-        }
-
-        /* Message Section */
-        .message-section {
-            padding: 120px 0;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .message-card {
-            text-align: center;
-            padding: 80px 40px;
-        }
-
-        .message-card h2 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            line-height: 1.4;
-        }
-
-        .message-card p {
-            font-size: 1.2rem;
-            color: var(--text-sub);
-            text-align: left;
-            margin-bottom: 24px;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 100px 0 160px;
-            text-align: center;
-        }
-
-        .cta-btn {
-            display: inline-block;
-            background-color: var(--text-main);
-            color: white;
-            padding: 24px 64px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.25rem;
-            font-weight: 700;
-            transition: all 0.5s var(--ease);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .cta-btn:hover {
-            background-color: var(--primary);
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 20px 40px rgba(233, 30, 99, 0.25);
-        }
-
-        /* Footer */
-        footer {
-            padding: 40px 0;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-sub);
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
-
     </style>
 </head>
 <body>
 
-    <div class="mesh-background"></div>
+    <!-- 1. Hero Section -->
+    <section class="hero">
+        <h1 class="hero-title" id="kinetic-text">
+            <span>ここで、</span><span>いっしょに、</span><span>育とう。</span>
+        </h1>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path d="M0,160L60,176C120,192,240,224,360,224C480,224,600,192,720,165.3C840,139,960,117,1080,122.7C1200,128,1320,160,1380,176L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+            </svg>
+        </div>
+    </section>
 
-    <div class="container">
-        <!-- 1. First View -->
-        <section class="hero reveal">
-            <div class="hero-content">
-                <span style="font-weight: 700; letter-spacing: 0.2em; color: var(--primary); display: block; margin-bottom: 20px;">RECRUITING 2026</span>
-                <h1>19人の成長に、深く、優しく。<br>プロとして向き合う小規模保育。</h1>
-                <p>加古川しらさぎ保育園は、0~2歳児の個性に寄り添う、<br>新しい形の保育現場です。</p>
-                <a href="#cta" class="cta-btn">まずは園見学から</a>
+    <!-- 2. Bento Summary Section -->
+    <section class="section-padding" style="background-color: var(--white);">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>園の概要</h2>
             </div>
-        </section>
-
-        <!-- 2. Bento UI Section -->
-        <section class="bento-section">
             <div class="bento-grid">
-                <!-- Card 1 -->
-                <div class="bento-card card-large reveal">
-                    <span class="tag">Small Group</span>
-                    <h3>定員19名の密な保育</h3>
-                    <p>一人ひとりの発達を科学し、見守る。大人数の保育では難しかった「個の探求」を、私たちはチームで実践しています。</p>
+                <div class="bento-item card-large reveal">
+                    <span class="label">Capacity</span>
+                    <p class="main-info">定員19名。<br>一人ひとりの個性を<br>深く、優しく包み込む。</p>
                 </div>
-                <!-- Card 2 -->
-                <div class="bento-card card-medium reveal">
-                    <span class="tag">Specialized</span>
-                    <h3>0〜2歳児特化</h3>
-                    <p>人生の土台を作る、最も大切な3年間に、最高の環境と専門的なケアを。</p>
+                <div class="bento-item card-medium reveal">
+                    <span class="label">Target</span>
+                    <p class="main-info">0歳児 〜 2歳児専門。<br>乳幼児期の成長に<br>特化した環境です。</p>
                 </div>
-                <!-- Card 3 -->
-                <div class="bento-card card-medium reveal">
-                    <span class="tag">Smart Work</span>
-                    <h3>ICT導入</h3>
-                    <p>事務作業を効率化し、子どもと向き合う時間を最大化。アナログな負担を排除しました。</p>
+                <div class="bento-item card-medium reveal" style="background-color: var(--accent-color); color: white;">
+                    <span class="label" style="color: rgba(255,255,255,0.8);">Hours</span>
+                    <p class="main-info">7:00 〜 18:00<br>（延長保育なし）</p>
                 </div>
-                <!-- Card 4 -->
-                <div class="bento-card card-large reveal">
-                    <span class="tag">Career</span>
-                    <h3>スマートな働き方</h3>
-                    <p>残業ゼロへの挑戦。ICTによる連絡帳作成やシフト管理により、保育士自身のワークライフバランスを最優先に考えています。</p>
+                <div class="bento-item card-large reveal">
+                    <span class="label">Location</span>
+                    <p class="main-info">加古川市加古川町河原240-1<br><span style="font-size: 1rem; font-weight: 400; opacity: 0.8; display: block; margin-top: 10px;">静かな環境で、落ち着いて保育に専念できる場所です。</span></p>
+                </div>
+                <div class="bento-item card-full reveal" style="padding: 30px 40px;">
+                    <span class="label">Contact</span>
+                    <p style="font-size: 1.2rem; font-weight: 500;">TEL: 079-451-7129 / FAX: 079-451-7139</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- 3. Statistics -->
-        <section class="stats-section reveal">
-            <div class="stats-row">
-                <div class="stat-item">
-                    <span class="stat-value">0<span>h</span></span>
-                    <span class="stat-label">月平均残業時間</span>
+    <!-- 3. Appeal Section -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>働く魅力</h2>
+            </div>
+            <div class="appeal-grid">
+                <div class="appeal-card reveal">
+                    <span class="icon">🌿</span>
+                    <h3>ゆとりのある保育</h3>
+                    <p>19名の小規模園。時間に追われるのではなく、子どもの「今」を大切にできる時間が流れています。</p>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-value">100<span>%</span></span>
-                    <span class="stat-label">有給消化率</span>
+                <div class="appeal-card reveal">
+                    <span class="icon">💻</span>
+                    <h3>ICTでスマートに</h3>
+                    <p>連絡帳や事務作業はデジタル化。アナログな負担を減らし、保育の質を高めることに集中できます。</p>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-value">1:3</span>
-                    <span class="stat-label">職員比率（0歳児）</span>
+                <div class="appeal-card reveal">
+                    <span class="icon">🏡</span>
+                    <h3>持ち帰り仕事ゼロ</h3>
+                    <p>延長保育がないため、残業もほぼありません。プライベートの充実が、良い保育につながると考えています。</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- 4. Message -->
-        <section class="message-section reveal">
-            <div class="message-card">
-                <h2>「生きる力」を育てる<br>プロフェッショナルの誇り。</h2>
-                <p>
-                    私たちは、ただ子どもを預かる場所ではありません。乳幼児期という人間の根幹が形成される時期に、どのような言葉をかけ、どのような環境を提供すべきか。
-                </p>
-                <p>
-                    「加古川しらさぎ保育園」は、エビデンスに基づいた保育と、溢れるほどの愛情を両立させるプロ集団です。あなたの情熱を、もっと自由に、もっとスマートに発揮できる場所がここにあります。
-                </p>
+    <!-- 4. Requirements Section -->
+    <section class="section-padding" style="background-color: #FDF6EC;">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>募集要項</h2>
             </div>
-        </section>
-
-        <!-- 5. CTA -->
-        <section id="cta" class="cta-section reveal">
-            <div class="cta-content">
-                <h2 style="font-size: 2.5rem; margin-bottom: 24px;">未来の仲間をお待ちしています。</h2>
-                <p style="color: var(--text-sub); margin-bottom: 48px; font-size: 1.1rem;">カジュアルな園見学から、あなたのキャリアプランをお聞かせください。</p>
-                <a href="https://himeji-preschool.jp/nursery/kakoshira/" class="cta-btn" target="_blank">エントリーはこちら</a>
+            <div class="requirements-table reveal">
+                <div class="row">
+                    <div class="row-label">雇用形態</div>
+                    <div class="row-content">正社員 / パート</div>
+                </div>
+                <div class="row">
+                    <div class="row-label">職種</div>
+                    <div class="row-content">保育士（要資格）</div>
+                </div>
+                <div class="row">
+                    <div class="row-label">給与</div>
+                    <div class="row-content">当園規定により決定（経験・能力を考慮いたします）</div>
+                </div>
+                <div class="row">
+                    <div class="row-label">休日</div>
+                    <div class="row-content">日・祝・年末年始・その他シフト制</div>
+                </div>
+                <div class="row">
+                    <div class="row-label">福利厚生</div>
+                    <div class="row-content">社会保険完備・交通費支給・有給休暇制度</div>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <footer>
-            <p>&copy; 2024 加古川しらさぎ保育園 All Rights Reserved.</p>
-        </footer>
-    </div>
+    <!-- 5. CTA Section -->
+    <section id="cta" class="cta-section reveal">
+        <div class="container">
+            <h2 style="font-size: clamp(1.8rem, 5vw, 2.8rem); margin-bottom: 24px;">まずは、園の空気感を<br>見に来ませんか？</h2>
+            <p style="opacity: 0.8; font-size: 1.1rem;">カジュアルな園見学から、あなたの「これから」をお聞かせください。</p>
+            <a href="tel:0794517129" class="cta-button">園見学を申し込む</a>
+            <p style="margin-top: 25px; font-size: 0.9rem;">お電話または公式サイトより受付中</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 加古川しらさぎ保育園</p>
+        </div>
+    </footer>
 
     <script>
-        // Intersection Observer to handle reveal animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+        // Kinetic Typography staggered delay
+        const spans = document.querySelectorAll('.hero-title span');
+        spans.forEach((span, idx) => {
+            span.style.animationDelay = `${0.3 + idx * 0.3}s`;
+        });
 
-        const observer = new IntersectionObserver((entries, observer) => {
+        // Intersection Observer for scroll reveal
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    // Once animated, we don't need to observe it anymore
-                    observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => {
-            observer.observe(el);
+            revealObserver.observe(el);
         });
 
-        // Add smooth scrolling for anchor links
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
     </script>
