@@ -3,37 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>採用情報 | 加古川しらさぎ保育園</title>
+    <title>求人募集 | 加古川しらさぎ保育園</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --bg-color: #FFF9F0;      /* 柔らかなアイボリー */
-            --accent-color: #88C0D0;  /* 落ち着いたパステルブルー */
-            --text-color: #5D574F;    /* 柔らかいブラウン味のあるグレー */
-            --white: #FFFFFF;
-            --card-radius: 40px;
-            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --primary: #FFFFFF;
+            --accent-charcoal: #4C566A;
+            --accent-sage: #A3BE8C;
+            --text-main: #2E3440;
+            --card-bg: #F8FAF9;
         }
 
         body {
-            font-family: 'Zen Maru Gothic', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.8;
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-main);
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
         }
 
         /* Noise Texture Overlay */
-        body::before {
+        .noise::before {
             content: "";
             position: fixed;
             top: 0;
@@ -41,39 +34,17 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 9999;
             opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='filter'%3BfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23filter)'/%3E%3C/svg%3E");
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* 1. Hero Section (Kinetic Typography) */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-title {
-            text-align: center;
-            font-size: clamp(2rem, 8vw, 4.5rem);
-            font-weight: 700;
-            letter-spacing: 0.05em;
-        }
-
-        .hero-title span {
+        /* Kinetic Typography Animation */
+        .kinetic-text span {
             display: inline-block;
             opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s forwards;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards ease-out;
         }
 
         @keyframes fadeInUp {
@@ -83,363 +54,216 @@
             }
         }
 
-        /* Wave SVG Background */
-        .hero-wave {
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            line-height: 0;
-            z-index: -1;
-        }
-
-        .hero-wave svg {
-            fill: var(--white);
-            width: 100%;
-            height: 120px;
-        }
-
-        /* 2. Bento UI Section */
-        .section-padding {
-            padding: 100px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            display: inline-block;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .section-title h2::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background-color: var(--accent-color);
-            border-radius: 2px;
-        }
-
+        /* Bento Grid Custom Styles */
         .bento-grid {
             display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 24px;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(180px, auto);
+            gap: 1.5rem;
         }
 
-        .bento-item {
-            background-color: var(--white);
-            border-radius: var(--card-radius);
-            padding: 40px;
-            box-shadow: 0 15px 35px rgba(93, 87, 79, 0.04);
-            transition: var(--transition);
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .bento-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0,0,0,0.03);
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
         }
 
-        .bento-item:hover {
+        .bento-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(93, 87, 79, 0.08);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            background: #fff;
         }
 
-        .card-large { grid-column: span 7; }
-        .card-medium { grid-column: span 5; }
-        .card-full { grid-column: span 12; }
-
-        @media (max-width: 850px) {
-            .card-large, .card-medium { grid-column: span 12; }
-        }
-
-        .bento-item .label {
-            font-size: 0.85rem;
-            color: var(--accent-color);
-            margin-bottom: 12px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-
-        .bento-item p.main-info {
-            font-size: 1.6rem;
-            font-weight: 700;
-            line-height: 1.4;
-        }
-
-        /* 3. Appeal Section (Micro-interactions) */
-        .appeal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .appeal-card {
-            background: rgba(136, 192, 208, 0.1);
-            border-radius: var(--card-radius);
-            padding: 45px;
-            text-align: center;
-            transition: var(--transition);
-            border: 1px solid rgba(136, 192, 208, 0.2);
-        }
-
-        .appeal-card:hover {
-            background: var(--white);
-            transform: scale(1.05);
-            border-color: transparent;
-            box-shadow: 0 30px 60px rgba(136, 192, 208, 0.15);
-        }
-
-        .appeal-card .icon {
-            font-size: 3.5rem;
-            margin-bottom: 24px;
-            display: block;
-        }
-
-        .appeal-card h3 {
-            margin-bottom: 16px;
-            font-size: 1.4rem;
-        }
-
-        /* 4. Requirements Section */
-        .requirements-table {
-            width: 100%;
-            background: var(--white);
-            border-radius: var(--card-radius);
-            padding: 50px;
-            margin-top: 40px;
-            box-shadow: 0 20px 40px rgba(93, 87, 79, 0.03);
-        }
-
-        .row {
-            display: flex;
-            padding: 24px 0;
-            border-bottom: 1px solid #f2f2f2;
-        }
-
-        .row:last-child { border-bottom: none; }
-
-        .row-label {
-            width: 180px;
-            font-weight: 700;
-            color: var(--accent-color);
-            flex-shrink: 0;
-        }
-
-        .row-content {
-            flex-grow: 1;
-        }
-
-        @media (max-width: 600px) {
-            .requirements-table { padding: 30px; }
-            .row { flex-direction: column; }
-            .row-label { margin-bottom: 8px; width: 100%; }
-        }
-
-        /* 5. CTA Section */
-        .cta-section {
-            text-align: center;
-            padding: 100px 0 150px;
-        }
-
+        /* Micro-interactions */
         .cta-button {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--white);
-            padding: 28px 80px;
-            border-radius: 60px;
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: 700;
-            transition: var(--transition);
-            box-shadow: 0 15px 30px rgba(136, 192, 208, 0.3);
-            margin-top: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-
+        
         .cta-button:hover {
-            background-color: var(--text-color);
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 25px 50px rgba(93, 87, 79, 0.2);
+            background-color: var(--accent-charcoal);
+            color: white;
+            transform: scale(1.05);
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 60px 0;
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(0,0,0,0.03);
+        .icon-bounce:hover svg {
+            animation: bounce 0.5s infinite alternate;
         }
 
-        /* Reveal Animation on Scroll */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1s var(--ease), transform 1s var(--ease);
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
         }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        /* Custom spacing for Bento specific layouts */
+        .col-span-2 { grid-column: span 2 / span 2; }
+        .row-span-2 { grid-row: span 2 / span 2; }
+
+        /* Floating CTA */
+        .floating-cta {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
         }
 
+        /* Placeholder Map Style */
+        .map-placeholder {
+            background: #e5e7eb;
+            background-image: linear-gradient(45deg, #f3f4f6 25%, transparent 25%, transparent 75%, #f3f4f6 75%, #f3f4f6), 
+                              linear-gradient(45deg, #f3f4f6 25%, transparent 25%, transparent 75%, #f3f4f6 75%, #f3f4f6);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
     </style>
 </head>
-<body>
+<body class="noise">
 
-    <!-- 1. Hero Section -->
-    <section class="hero">
-        <h1 class="hero-title" id="kinetic-text">
-            <span>ここで、</span><span>いっしょに、</span><span>育とう。</span>
+    <!-- Hero Section -->
+    <header class="min-h-screen flex flex-col items-center justify-center text-center px-4 relative">
+        <div class="mb-4 text-sm tracking-widest text-gray-400 uppercase">Recruitment 2024</div>
+        <h1 class="kinetic-text text-5xl md:text-8xl font-black text-slate-700 leading-tight">
+            <span>加</span><span>古</span><span>川</span><span>し</span><span>ら</span><span>さ</span><span>ぎ</span><br>
+            <span style="animation-delay: 0.1s">保</span><span style="animation-delay: 0.15s">育</span><span style="animation-delay: 0.2s">園</span>
         </h1>
-        <div class="hero-wave">
-            <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-                <path d="M0,160L60,176C120,192,240,224,360,224C480,224,600,192,720,165.3C840,139,960,117,1080,122.7C1200,128,1320,160,1380,176L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+        <p class="mt-8 text-lg text-gray-500 max-w-lg mx-auto leading-relaxed">
+            一人ひとりに寄り添う、あたたかな時間。<br>
+            ゆとりある環境で、あなたの保育をカタチにしませんか？
+        </p>
+        <div class="mt-12 animate-bounce opacity-30">
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
             </svg>
         </div>
-    </section>
+    </header>
 
-    <!-- 2. Bento Summary Section -->
-    <section class="section-padding" style="background-color: var(--white);">
-        <div class="container">
-            <div class="section-title reveal">
-                <h2>園の概要</h2>
+    <!-- Bento Section -->
+    <main class="max-w-6xl mx-auto px-6 pb-32">
+        <div class="bento-grid">
+            
+            <!-- Card A: Time -->
+            <div class="bento-card col-span-2 row-span-1 bg-emerald-50 border-emerald-100">
+                <div class="icon-bounce">
+                    <svg class="w-10 h-10 text-emerald-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-emerald-700 mb-1">勤務時間</h3>
+                    <p class="text-3xl font-black text-emerald-900">7:00 〜 18:00</p>
+                    <p class="mt-2 text-emerald-600 font-medium text-sm">延長保育がないため、定時で帰りやすい環境です。</p>
+                </div>
             </div>
-            <div class="bento-grid">
-                <div class="bento-item card-large reveal">
-                    <span class="label">Capacity</span>
-                    <p class="main-info">定員19名。<br>一人ひとりの個性を<br>深く、優しく包み込む。</p>
+
+            <!-- Card B: Holidays -->
+            <div class="bento-card col-span-2 md:col-span-1 bg-stone-100">
+                <div class="icon-bounce">
+                    <svg class="w-8 h-8 text-stone-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
                 </div>
-                <div class="bento-item card-medium reveal">
-                    <span class="label">Target</span>
-                    <p class="main-info">0歳児 〜 2歳児専門。<br>乳幼児期の成長に<br>特化した環境です。</p>
+                <div>
+                    <h3 class="text-xs font-bold text-stone-500 mb-1">休園日</h3>
+                    <p class="text-xl font-bold text-stone-800 leading-tight">日曜・祝日<br>年末年始</p>
                 </div>
-                <div class="bento-item card-medium reveal" style="background-color: var(--accent-color); color: white;">
-                    <span class="label" style="color: rgba(255,255,255,0.8);">Hours</span>
-                    <p class="main-info">7:00 〜 18:00<br>（延長保育なし）</p>
+            </div>
+
+            <!-- Card C: Capacity -->
+            <div class="bento-card col-span-2 md:col-span-1" style="background-color: var(--accent-sage);">
+                <div class="text-white opacity-80 mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
                 </div>
-                <div class="bento-item card-large reveal">
-                    <span class="label">Location</span>
-                    <p class="main-info">加古川市加古川町河原240-1<br><span style="font-size: 1rem; font-weight: 400; opacity: 0.8; display: block; margin-top: 10px;">静かな環境で、落ち着いて保育に専念できる場所です。</span></p>
+                <div class="text-white">
+                    <h3 class="text-xs font-bold mb-1">定員</h3>
+                    <p class="text-2xl font-black">19名</p>
+                    <p class="text-xs mt-1 opacity-90">0歳児〜2歳児対象</p>
                 </div>
-                <div class="bento-item card-full reveal" style="padding: 30px 40px;">
-                    <span class="label">Contact</span>
-                    <p style="font-size: 1.2rem; font-weight: 500;">TEL: 079-451-7129 / FAX: 079-451-7139</p>
+            </div>
+
+            <!-- Card D: Image/Facility -->
+            <div class="bento-card col-span-4 md:col-span-2 row-span-2 p-0 overflow-hidden group">
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all z-10"></div>
+                <!-- 本来は画像が入る場所 -->
+                <div class="w-full h-full flex items-center justify-center bg-gray-200">
+                    <span class="text-gray-400">施設紹介イメージ</span>
+                </div>
+                <div class="absolute bottom-6 left-6 z-20 text-white">
+                    <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold mb-2 inline-block">Facility</span>
+                    <h3 class="text-2xl font-bold">密な関わりを大切に</h3>
+                    <p class="text-sm opacity-90 mt-1">小規模だからこそできる丁寧な保育。</p>
+                </div>
+            </div>
+
+            <!-- Card E: Location & Info -->
+            <div class="bento-card col-span-4 md:col-span-2 bg-white">
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="flex-1">
+                        <h3 class="text-xs font-bold text-gray-400 mb-2 uppercase tracking-widest">Access</h3>
+                        <p class="text-lg font-bold text-slate-700">〒675-0067<br>加古川市加古川町河原240-1</p>
+                        <div class="mt-4 space-y-1 text-sm text-gray-500">
+                            <p>TEL: 079-451-7129</p>
+                            <p>FAX: 079-451-7139</p>
+                        </div>
+                    </div>
+                    <div class="flex-1 h-32 md:h-auto rounded-xl map-placeholder relative">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="bg-white px-3 py-1 rounded-lg text-xs font-bold shadow-sm">Google Map</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- 3. Appeal Section -->
-    <section class="section-padding">
-        <div class="container">
-            <div class="section-title reveal">
-                <h2>働く魅力</h2>
+        <!-- CTA Section -->
+        <section class="mt-32 text-center bg-slate-50 rounded-[40px] py-20 px-6 border border-slate-100">
+            <h2 class="text-3xl md:text-4xl font-black text-slate-800 mb-6">一緒に、しらさぎで働きませんか？</h2>
+            <p class="text-gray-500 mb-10 max-w-lg mx-auto leading-relaxed">
+                見学も随時受け付けております。<br>まずはお気軽にお問い合わせください。
+            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                <a href="tel:0794517129" class="cta-button w-full md:w-auto bg-white border-2 border-slate-200 text-slate-700 px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    電話でお問い合わせ
+                </a>
+                <a href="#" class="cta-button w-full md:w-auto bg-[#A3BE8C] text-white px-10 py-4 rounded-full font-bold shadow-lg shadow-emerald-200/50 flex items-center justify-center gap-2">
+                    応募・エントリー
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
             </div>
-            <div class="appeal-grid">
-                <div class="appeal-card reveal">
-                    <span class="icon">🌿</span>
-                    <h3>ゆとりのある保育</h3>
-                    <p>19名の小規模園。時間に追われるのではなく、子どもの「今」を大切にできる時間が流れています。</p>
-                </div>
-                <div class="appeal-card reveal">
-                    <span class="icon">💻</span>
-                    <h3>ICTでスマートに</h3>
-                    <p>連絡帳や事務作業はデジタル化。アナログな負担を減らし、保育の質を高めることに集中できます。</p>
-                </div>
-                <div class="appeal-card reveal">
-                    <span class="icon">🏡</span>
-                    <h3>持ち帰り仕事ゼロ</h3>
-                    <p>延長保育がないため、残業もほぼありません。プライベートの充実が、良い保育につながると考えています。</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- 4. Requirements Section -->
-    <section class="section-padding" style="background-color: #FDF6EC;">
-        <div class="container">
-            <div class="section-title reveal">
-                <h2>募集要項</h2>
-            </div>
-            <div class="requirements-table reveal">
-                <div class="row">
-                    <div class="row-label">雇用形態</div>
-                    <div class="row-content">正社員 / パート</div>
-                </div>
-                <div class="row">
-                    <div class="row-label">職種</div>
-                    <div class="row-content">保育士（要資格）</div>
-                </div>
-                <div class="row">
-                    <div class="row-label">給与</div>
-                    <div class="row-content">当園規定により決定（経験・能力を考慮いたします）</div>
-                </div>
-                <div class="row">
-                    <div class="row-label">休日</div>
-                    <div class="row-content">日・祝・年末年始・その他シフト制</div>
-                </div>
-                <div class="row">
-                    <div class="row-label">福利厚生</div>
-                    <div class="row-content">社会保険完備・交通費支給・有給休暇制度</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. CTA Section -->
-    <section id="cta" class="cta-section reveal">
-        <div class="container">
-            <h2 style="font-size: clamp(1.8rem, 5vw, 2.8rem); margin-bottom: 24px;">まずは、園の空気感を<br>見に来ませんか？</h2>
-            <p style="opacity: 0.8; font-size: 1.1rem;">カジュアルな園見学から、あなたの「これから」をお聞かせください。</p>
-            <a href="tel:0794517129" class="cta-button">園見学を申し込む</a>
-            <p style="margin-top: 25px; font-size: 0.9rem;">お電話または公式サイトより受付中</p>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 加古川しらさぎ保育園</p>
-        </div>
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-400 py-12 px-6 text-center text-sm">
+        <p class="mb-2">加古川しらさぎ保育園</p>
+        <p>&copy; 2024 Kakogawa Shirasagi. All rights reserved.</p>
     </footer>
 
-    <script>
-        // Kinetic Typography staggered delay
-        const spans = document.querySelectorAll('.hero-title span');
-        spans.forEach((span, idx) => {
-            span.style.animationDelay = `${0.3 + idx * 0.3}s`;
-        });
+    <!-- Floating CTA for Mobile/Desktop -->
+    <div class="floating-cta">
+        <a href="#" class="bg-slate-800 text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-xl">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+            </svg>
+        </a>
+    </div>
 
-        // Intersection Observer for scroll reveal
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal').forEach(el => {
-            revealObserver.observe(el);
-        });
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
 </body>
 </html>
