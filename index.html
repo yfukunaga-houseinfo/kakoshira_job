@@ -6,7 +6,8 @@
     <title>採用情報 | 加古川しらさぎ保育園 - 定員19名の、大家族。</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.0/umd/lucide.min.js"></script>
+    <!-- Updated Lucide CDN to a more reliable source -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
             --main-color: #EBCB8B;
@@ -278,64 +279,77 @@
     </footer>
 
     <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-
-        // Scroll Reveal Animation (Kinetic Typography)
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.kinetic-text, .slide-in-left').forEach(el => {
-            revealObserver.observe(el);
-        });
-
-        // Ripple Effect
-        const rippleButton = document.getElementById('rippleButton');
-        rippleButton.addEventListener('click', function(e) {
-            const circle = document.createElement('span');
-            const diameter = Math.max(this.clientWidth, this.clientHeight);
-            const radius = diameter / 2;
-
-            const rect = this.getBoundingClientRect();
-
-            circle.style.width = circle.style.height = `${diameter}px`;
-            circle.style.left = `${e.clientX - rect.left - radius}px`;
-            circle.style.top = `${e.clientY - rect.top - radius}px`;
-            circle.classList.add('ripple');
-
-            const ripple = this.getElementsByClassName('ripple')[0];
-            if (ripple) { ripple.remove(); }
-
-            this.appendChild(circle);
+        // Ensure scripts run after the DOM is fully interactive
+        document.addEventListener('DOMContentLoaded', function() {
             
-            // Interaction feedback
-            setTimeout(() => {
-                // Here you would normally redirect or open a modal
-                console.log("Entry action triggered");
-            }, 600);
+            // Function to initialize icons with retry logic
+            const initIcons = () => {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                } else {
+                    console.log("Waiting for Lucide to load...");
+                    setTimeout(initIcons, 100);
+                }
+            };
+            initIcons();
+
+            // Scroll Reveal Animation (Kinetic Typography)
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.kinetic-text, .slide-in-left').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // Ripple Effect
+            const rippleButton = document.getElementById('rippleButton');
+            if (rippleButton) {
+                rippleButton.addEventListener('click', function(e) {
+                    const circle = document.createElement('span');
+                    const diameter = Math.max(this.clientWidth, this.clientHeight);
+                    const radius = diameter / 2;
+                    const rect = this.getBoundingClientRect();
+
+                    circle.style.width = circle.style.height = `${diameter}px`;
+                    circle.style.left = `${e.clientX - rect.left - radius}px`;
+                    circle.style.top = `${e.clientY - rect.top - radius}px`;
+                    circle.classList.add('ripple');
+
+                    const oldRipple = this.querySelector('.ripple');
+                    if (oldRipple) oldRipple.remove();
+
+                    this.appendChild(circle);
+                    console.log("Entry action triggered");
+                });
+            }
+
+            // Animation for Organic Blobs
+            const blobs = document.querySelectorAll('.organic-blob');
+            setInterval(() => {
+                blobs.forEach(blob => {
+                    const r1 = Math.floor(Math.random() * 30) + 40;
+                    const r2 = Math.floor(Math.random() * 30) + 40;
+                    const r3 = Math.floor(Math.random() * 30) + 40;
+                    const r4 = Math.floor(Math.random() * 30) + 40;
+                    blob.style.borderRadius = `${r1}% ${100-r1}% ${r2}% ${100-r2}% / ${r3}% ${r4}% ${100-r4}% ${100-r3}%`;
+                });
+            }, 3000);
         });
 
-        // Animation for Organic Blobs
-        const blobs = document.querySelectorAll('.organic-blob');
-        setInterval(() => {
-            blobs.forEach(blob => {
-                const r1 = Math.floor(Math.random() * 30) + 40;
-                const r2 = Math.floor(Math.random() * 30) + 40;
-                const r3 = Math.floor(Math.random() * 30) + 40;
-                const r4 = Math.floor(Math.random() * 30) + 40;
-                blob.style.borderRadius = `${r1}% ${100-r1}% ${r2}% ${100-r2}% / ${r3}% ${r4}% ${100-r4}% ${100-r3}%`;
-            });
-        }, 3000);
+        // Fail-safe check on window load
+        window.addEventListener('load', () => {
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        });
     </script>
 </body>
 </html>
